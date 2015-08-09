@@ -3,7 +3,7 @@ xrdp_encoder.h xrdp_keyboard.ini
 
 EXTRA_INCLUDES =
 EXTRA_LIBS =
-EXTRA_FLAGS =
+EXTRA_FLAGS = -Werror
 
 if XRDP_DEBUG
 EXTRA_DEFINES = -DXRDP_DEBUG

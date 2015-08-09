@@ -57,7 +57,7 @@ rdp_iso_recv_msg(struct rdp_iso *self, struct stream *s, int *code)
 
     if (rdp_tcp_recv(self->tcp_layer, s, 4) != 0)
     {
-        DEBUG(("   out rdp_iso_recv_msg error rdp_tcp_recv 1 failed"));
+        DEBUG("   out rdp_iso_recv_msg error rdp_tcp_recv 1 failed");
         return 1;
     }
 
@@ -65,7 +65,7 @@ rdp_iso_recv_msg(struct rdp_iso *self, struct stream *s, int *code)
 
     if (ver != 3)
     {
-        DEBUG(("   out rdp_iso_recv_msg error ver != 3"));
+        DEBUG("   out rdp_iso_recv_msg error ver != 3");
         return 1;
     }
 
@@ -74,7 +74,7 @@ rdp_iso_recv_msg(struct rdp_iso *self, struct stream *s, int *code)
 
     if (rdp_tcp_recv(self->tcp_layer, s, len - 4) != 0)
     {
-        DEBUG(("   out rdp_iso_recv_msg error rdp_tcp_recv 2 failed"));
+        DEBUG("   out rdp_iso_recv_msg error rdp_tcp_recv 2 failed");
         return 1;
     }
 
@@ -182,14 +182,14 @@ rdp_iso_connect(struct rdp_iso *self, char *ip, char *port)
     int code;
     struct stream *s;
 
-    DEBUG(("   in rdp_iso_connect"));
+    DEBUG("   in rdp_iso_connect");
     make_stream(s);
     init_stream(s, 8192);
 
     if (rdp_tcp_connect(self->tcp_layer, ip, port) != 0)
     {
         free_stream(s);
-        DEBUG(("   out rdp_iso_connect error rdp_tcp_connect failed"));
+        DEBUG("   out rdp_iso_connect error rdp_tcp_connect failed");
         return 1;
     }
 
@@ -197,7 +197,7 @@ rdp_iso_connect(struct rdp_iso *self, char *ip, char *port)
     {
         free_stream(s);
         rdp_tcp_disconnect(self->tcp_layer);
-        DEBUG(("   out rdp_iso_connect error rdp_iso_send_msg failed"));
+        DEBUG("   out rdp_iso_connect error rdp_iso_send_msg failed");
         return 1;
     }
 
@@ -207,7 +207,7 @@ rdp_iso_connect(struct rdp_iso *self, char *ip, char *port)
     {
         free_stream(s);
         rdp_tcp_disconnect(self->tcp_layer);
-        DEBUG(("   out rdp_iso_connect error rdp_iso_recv_msg failed"));
+        DEBUG("   out rdp_iso_connect error rdp_iso_recv_msg failed");
         return 1;
     }
 
@@ -215,12 +215,12 @@ rdp_iso_connect(struct rdp_iso *self, char *ip, char *port)
     {
         free_stream(s);
         rdp_tcp_disconnect(self->tcp_layer);
-        DEBUG(("   out rdp_iso_connect error code != ISO_PDU_CC"));
+        DEBUG("   out rdp_iso_connect error code != ISO_PDU_CC");
         return 1;
     }
 
     free_stream(s);
-    DEBUG(("   out rdp_iso_connect"));
+    DEBUG("   out rdp_iso_connect");
     return 0;
 }
 

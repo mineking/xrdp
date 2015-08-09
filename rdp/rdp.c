@@ -25,14 +25,14 @@
 int DEFAULT_CC
 lib_mod_start(struct mod *mod, int w, int h, int bpp)
 {
-    DEBUG(("in lib_mod_start"));
+    DEBUG("in lib_mod_start");
     mod->width = w;
     mod->height = h;
     mod->rdp_bpp = bpp;
     mod->xrdp_bpp = bpp;
     mod->keylayout = 0x409;
     g_strncpy(mod->port, "3389", 255); /* default */
-    DEBUG(("out lib_mod_start"));
+    DEBUG("out lib_mod_start");
     return 0;
 }
 
@@ -41,7 +41,7 @@ lib_mod_start(struct mod *mod, int w, int h, int bpp)
 int DEFAULT_CC
 lib_mod_connect(struct mod *mod)
 {
-    DEBUG(("in lib_mod_connect"));
+    DEBUG("in lib_mod_connect");
     /* clear screen */
     mod->server_begin_update(mod);
     mod->server_set_fgcolor(mod, 0);
@@ -55,11 +55,11 @@ lib_mod_connect(struct mod *mod)
         g_tcp_set_non_blocking(mod->sck);
         g_tcp_set_no_delay(mod->sck);
         mod->sck_obj = g_create_wait_obj_from_socket(mod->sck, 0);
-        DEBUG(("out lib_mod_connect"));
+        DEBUG("out lib_mod_connect");
         return 0;
     }
 
-    DEBUG(("out lib_mod_connect error"));
+    DEBUG("out lib_mod_connect error");
     return 1;
 }
 
@@ -76,7 +76,7 @@ lib_mod_event(struct mod *mod, int msg, long param1, long param2,
         return 0;
     }
 
-    DEBUG(("in lib_mod_event"));
+    DEBUG("in lib_mod_event");
     make_stream(s);
     init_stream(s, 8192 * 2);
 
@@ -151,7 +151,7 @@ lib_mod_event(struct mod *mod, int msg, long param1, long param2,
     }
 
     free_stream(s);
-    DEBUG(("out lib_mod_event"));
+    DEBUG("out lib_mod_event");
     return 0;
 }
 
@@ -164,7 +164,7 @@ lib_mod_signal(struct mod *mod)
     int cont;
     struct stream *s;
 
-    DEBUG(("in lib_mod_signal"));
+    DEBUG("in lib_mod_signal");
 
     if (mod->in_s == 0)
     {
@@ -181,11 +181,11 @@ lib_mod_signal(struct mod *mod)
 
         if (rdp_rdp_recv(mod->rdp_layer, s, &type) != 0)
         {
-            DEBUG(("out lib_mod_signal error rdp_rdp_recv failed"));
+            DEBUG("out lib_mod_signal error rdp_rdp_recv failed");
             return 1;
         }
 
-        DEBUG(("lib_mod_signal type %d", type));
+        DEBUG("lib_mod_signal type %d", type);
 
         switch (type)
         {
@@ -210,7 +210,7 @@ lib_mod_signal(struct mod *mod)
         cont = s->next_packet < s->end;
     }
 
-    DEBUG(("out lib_mod_signal"));
+    DEBUG("out lib_mod_signal");
     return 0;
 }
 
@@ -323,7 +323,7 @@ mod_init(void)
 {
     struct mod *mod;
 
-    DEBUG(("in mod_init"));
+    DEBUG("in mod_init");
     mod = (struct mod *)g_malloc(sizeof(struct mod), 1);
     mod->size = sizeof(struct mod);
     mod->version = CURRENT_MOD_VER;
@@ -337,7 +337,7 @@ mod_init(void)
     mod->mod_get_wait_objs = lib_mod_get_wait_objs;
     mod->mod_check_wait_objs = lib_mod_check_wait_objs;
     mod->rdp_layer = rdp_rdp_create(mod);
-    DEBUG(("out mod_init"));
+    DEBUG("out mod_init");
     return mod;
 }
 
@@ -345,8 +345,8 @@ mod_init(void)
 int EXPORT_CC
 mod_exit(struct mod *mod)
 {
-    DEBUG(("in mod_exit"));
+    DEBUG("in mod_exit");
     g_free(mod);
-    DEBUG(("out mod_exit"));
+    DEBUG("out mod_exit");
     return 0;
 }

@@ -156,16 +156,16 @@ rdp_sec_recv(struct rdp_sec *self, struct stream *s, int *chan)
 {
     int flags;
 
-    DEBUG((" in rdp_sec_recv"));
+    DEBUG(" in rdp_sec_recv");
 
     if (rdp_mcs_recv(self->mcs_layer, s, chan) != 0)
     {
-        DEBUG((" error in rdp_sec_recv, rdp_mcs_recv failed"));
+        DEBUG(" error in rdp_sec_recv, rdp_mcs_recv failed");
         return 1;
     }
 
     in_uint32_le(s, flags);
-    DEBUG((" rdp_sec_recv flags %8.8x", flags));
+    DEBUG(" rdp_sec_recv flags %8.8x", flags);
 
     if (flags & SEC_ENCRYPT) /* 0x08 */
     {
@@ -175,12 +175,12 @@ rdp_sec_recv(struct rdp_sec *self, struct stream *s, int *chan)
 
     if (flags & SEC_LICENCE_NEG) /* 0x80 */
     {
-        DEBUG((" in rdp_sec_recv, got SEC_LICENCE_NEG"));
+        DEBUG(" in rdp_sec_recv, got SEC_LICENCE_NEG");
         rdp_lic_process(self->lic_layer, s);
         *chan = 0;
     }
 
-    DEBUG((" out rdp_sec_recv"));
+    DEBUG(" out rdp_sec_recv");
     return 0;
 }
 
@@ -332,7 +332,7 @@ rdp_sec_parse_crypt_info(struct rdp_sec *self, struct stream *s,
             in_uint16_le(s, tag);
             in_uint16_le(s, length);
             next_tag = s->p + length;
-            DEBUG((" rdp_sec_parse_crypt_info tag %d length %d", tag, length));
+            DEBUG(" rdp_sec_parse_crypt_info tag %d length %d", tag, length);
 
             switch (tag)
             {
@@ -440,8 +440,8 @@ rdp_sec_generate_keys(struct rdp_sec *self)
                     self->server_random);
     rdp_sec_hash_16(self->encrypt_key, session_key + 32, self->client_random,
                     self->server_random);
-    DEBUG((" rdp_sec_generate_keys, rc4_key_size is %d", self->rc4_key_size));
-    DEBUG((" rdp_sec_generate_keys, crypt_level is %d", self->crypt_level));
+    DEBUG(" rdp_sec_generate_keys, rc4_key_size is %d", self->rc4_key_size);
+    DEBUG(" rdp_sec_generate_keys, crypt_level is %d", self->crypt_level);
 
     if (self->rc4_key_size == 1)
     {
@@ -475,7 +475,7 @@ rdp_sec_process_crypt_info(struct rdp_sec *self, struct stream *s)
 
     if (!rdp_sec_parse_crypt_info(self, s, modulus, exponent))
     {
-        DEBUG((" error in rdp_sec_process_crypt_info"));
+        DEBUG(" error in rdp_sec_process_crypt_info");
         return;
     }
 
@@ -511,7 +511,7 @@ rdp_sec_process_mcs_data(struct rdp_sec *self)
     {
         in_uint16_le(s, tag);
         in_uint16_le(s, length);
-        DEBUG((" rdp_sec_process_mcs_data tag %d length %d", tag, length));
+        DEBUG(" rdp_sec_process_mcs_data tag %d length %d", tag, length);
 
         if (length <= 4)
         {
@@ -548,7 +548,7 @@ rdp_sec_establish_key(struct rdp_sec *self)
     int flags;
     struct stream *s;
 
-    DEBUG((" sending client random"));
+    DEBUG(" sending client random");
     make_stream(s);
     init_stream(s, 8192);
     length = SEC_MODULUS_SIZE + SEC_PADDING_SIZE;
@@ -580,12 +580,12 @@ rdp_sec_establish_key(struct rdp_sec *self)
 int APP_CC
 rdp_sec_connect(struct rdp_sec *self, char *ip, char *port)
 {
-    DEBUG((" in rdp_sec_connect"));
+    DEBUG(" in rdp_sec_connect");
     rdp_sec_out_mcs_data(self);
 
     if (rdp_mcs_connect(self->mcs_layer, ip, port) != 0)
     {
-        DEBUG((" out rdp_sec_connect error rdp_mcs_connect failed"));
+        DEBUG(" out rdp_sec_connect error rdp_mcs_connect failed");
         return 1;
     }
 
@@ -593,11 +593,11 @@ rdp_sec_connect(struct rdp_sec *self, char *ip, char *port)
 
     if (rdp_sec_establish_key(self) != 0)
     {
-        DEBUG((" out rdp_sec_connect error rdp_sec_establish_key failed"));
+        DEBUG(" out rdp_sec_connect error rdp_sec_establish_key failed");
         return 1;
     }
 
-    DEBUG((" out rdp_sec_connect"));
+    DEBUG(" out rdp_sec_connect");
     return 0;
 }
 
@@ -690,7 +690,7 @@ rdp_sec_send(struct rdp_sec *self, struct stream *s, int flags)
 {
     int datalen;
 
-    DEBUG((" in rdp_sec_send flags %8.8x", flags));
+    DEBUG(" in rdp_sec_send flags %8.8x", flags);
     s_pop_layer(s, sec_hdr);
     out_uint32_le(s, flags);
 
@@ -704,10 +704,10 @@ rdp_sec_send(struct rdp_sec *self, struct stream *s, int flags)
 
     if (rdp_mcs_send(self->mcs_layer, s) != 0)
     {
-        DEBUG((" out rdp_sec_send, rdp_mcs_send failed"));
+        DEBUG(" out rdp_sec_send, rdp_mcs_send failed");
         return 1;
     }
 
-    DEBUG((" out rdp_sec_send"));
+    DEBUG(" out rdp_sec_send");
     return 0;
 }

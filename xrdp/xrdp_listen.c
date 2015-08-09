@@ -135,12 +135,12 @@ xrdp_process_run(void *in_val)
 {
     struct xrdp_process *process;
 
-    DEBUG(("process started"));
+    DEBUG("process started");
     process = g_process;
     g_process = 0;
     tc_sem_inc(g_process_sem);
     xrdp_process_main_loop(process);
-    DEBUG(("process done"));
+    DEBUG("process done");
     return 0;
 }
 

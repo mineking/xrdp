@@ -21,13 +21,14 @@
 #ifndef DEFINES_H
 #define DEFINES_H
 
+#include "debug.h"
 /* check for debug */
 #ifdef XRDP_DEBUG
-#define DEBUG(args) g_writeln args;
+#define DEBUG log_info
 #define LIB_DEBUG(_mod, _text) _mod->server_msg(_mod, _text, 1);
 #else
-#define DEBUG(args)
-#define LIB_DEBUG(_mod, _text)
+#define DEBUG
+#define LIB_DEBUG(_mod, _text);
 #endif
 /* other macros */
 #undef MIN

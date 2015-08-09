@@ -369,7 +369,7 @@ xrdp_mm_create(struct xrdp_wm* owner);
 void APP_CC
 xrdp_mm_delete(struct xrdp_mm* self);
 int APP_CC
-xrdp_mm_connect(struct xrdp_mm* self);
+xrdp_mm_connect(struct xrdp_mm* self, int checkOnly, int startNewSession);
 int APP_CC
 xrdp_mm_process_channel_data(struct xrdp_mm* self, tbus param1, tbus param2,
                              tbus param3, tbus param4);

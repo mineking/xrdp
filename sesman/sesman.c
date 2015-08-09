@@ -25,6 +25,7 @@
  */
 
 #include "sesman.h"
+#include "debug.h"
 
 int g_sck;
 int g_pid;
@@ -51,7 +52,7 @@ sesman_main_loop(void)
     int cont;
     tbus sck_obj;
     tbus robjs[8];
-
+	log_info("listening on %s:%s",g_cfg->listen_address, g_cfg->listen_port);
     /*main program loop*/
     log_message(LOG_LEVEL_INFO, "listening...");
 

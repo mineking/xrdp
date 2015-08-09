@@ -274,15 +274,10 @@ void DEFAULT_CC
 g_writeln(const char *format, ...)
 {
     va_list ap;
-
     va_start(ap, format);
     vfprintf(stdout, format, ap);
     va_end(ap);
-#if defined(_WIN32)
-    g_printf("\r\n");
-#else
     g_printf("\n");
-#endif
 }
 
 /*****************************************************************************/
@@ -2711,9 +2706,25 @@ g_execvp(const char *p1, char *args[])
     return 0;
 #else
     int rv;
+    struct stat sts;
+    if (stat(p1, & sts) != 0) {
+	if (errno == ENOENT) {
+	    log_message(LOG_LEVEL_ERROR, "g_execvp: command : %s not found ! File missing or not in path.",p1);
+	}else {
+	    log_message(LOG_LEVEL_ERROR, "g_execvp: command : unable to access file : %s",p1);
+	}
+
+    }
 
     g_rm_temp_dir();
     rv = execvp(p1, args);
+    if (rv == -1) {
+    	if(errno == ENOENT){
+            log_message(LOG_LEVEL_ERROR, "g_execvp: command : %s not found ! File missing or not in path.",p1);
+    	}else {
+            log_message(LOG_LEVEL_ERROR, "g_execvp: command : unable to access file : %s",p1);
+    	}
+    }
     g_mk_temp_dir(0);
     return rv;
 #endif

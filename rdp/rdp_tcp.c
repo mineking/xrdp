@@ -55,12 +55,12 @@ rdp_tcp_recv(struct rdp_tcp *self, struct stream *s, int len)
 {
     int rcvd;
 
-    DEBUG(("    in rdp_tcp_recv gota get %d bytes on sck %d",
-           len, self->sck));
+    DEBUG("    in rdp_tcp_recv gota get %d bytes on sck %d",
+           len, self->sck);
 
     if (self->sck_closed)
     {
-        DEBUG(("    out rdp_tcp_recv error sck closed"));
+        DEBUG("    out rdp_tcp_recv error sck closed");
         return 1;
     }
 
@@ -79,14 +79,14 @@ rdp_tcp_recv(struct rdp_tcp *self, struct stream *s, int len)
             else
             {
                 self->sck_closed = 1;
-                DEBUG(("    out rdp_tcp_recv error unknown"));
+                DEBUG("    out rdp_tcp_recv error unknown");
                 return 1;
             }
         }
         else if (rcvd == 0)
         {
             self->sck_closed = 1;
-            DEBUG(("    out rdp_tcp_recv error connection dropped"));
+            DEBUG("error connection dropped");
             return 1;
         }
         else
@@ -110,13 +110,13 @@ rdp_tcp_send(struct rdp_tcp *self, struct stream *s)
 
     if (self->sck_closed)
     {
-        DEBUG(("    out rdp_tcp_send error sck closed"));
+        DEBUG("    out rdp_tcp_send error sck closed");
         return 1;
     }
 
     len = s->end - s->data;
-    DEBUG(("    in rdp_tcp_send gota send %d bytes on sck %d", len,
-           self->sck));
+    DEBUG("    in rdp_tcp_send gota send %d bytes on sck %d", len,
+           self->sck);
     total = 0;
 
     while (total < len)
@@ -132,14 +132,14 @@ rdp_tcp_send(struct rdp_tcp *self, struct stream *s)
             else
             {
                 self->sck_closed = 1;
-                DEBUG(("    out rdp_tcp_send error unknown"));
+                DEBUG("    out rdp_tcp_send error unknown");
                 return 1;
             }
         }
         else if (sent == 0)
         {
             self->sck_closed = 1;
-            DEBUG(("    out rdp_tcp_send error connection dropped"));
+            DEBUG("    out rdp_tcp_send error connection dropped");
             return 1;
         }
         else
@@ -156,7 +156,7 @@ rdp_tcp_send(struct rdp_tcp *self, struct stream *s)
 int APP_CC
 rdp_tcp_connect(struct rdp_tcp *self, char *ip, char *port)
 {
-    DEBUG(("    in rdp_tcp_connect ip %s port %s", ip, port));
+    DEBUG("    in rdp_tcp_connect ip %s port %s", ip, port);
 
     self->sck = g_tcp_socket();
     if (self->sck < 0)
@@ -168,11 +168,11 @@ rdp_tcp_connect(struct rdp_tcp *self, char *ip, char *port)
     }
     else
     {
-        DEBUG(("    out rdp_tcp_connect error g_tcp_connect failed"));
+        DEBUG("    out rdp_tcp_connect error g_tcp_connect failed");
         return 1;
     }
 
-    DEBUG(("    out rdp_tcp_connect"));
+    DEBUG("    out rdp_tcp_connect");
     return 0;
 }
 

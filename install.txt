@@ -7,6 +7,21 @@ have these installed by default.
   Header files for pam
   Header files for openssl
 
+
+sudo apt-get install autoconf
+sudo apt-get install autoconf
+sudo apt-get install libtool
+sudo apt-get install libssl-dev
+sudo apt-get install libpam0g-dev
+sudo apt-get install libxrandr-dev
+sudo apt-get install xsltproc flex bison
+sudo apt-get install build-essential checkinstall automake automake1.9 git git-core libssl-dev libpam0g-dev zlib1g-dev libtool libtool-bin libx11-dev libxfixes-dev 
+pkg-config flex bison libxml2-dev intltool xsltproc xutils-dev python-libxml2 g++ xutils libfuse-dev wget libxrandr-dev x11proto-* libdrm-dev libpixman-1-dev 
+libgl1-mesa-dev libxkbfile-dev libxfont-dev libpciaccess-dev dh-make gettext xfonts-utils
+
+sudo ./buildx.sh /opt/X11rdp
+
+
 You can build sesman without pam, there is a Makefile parameter
 for that.
 I also have a replacement ssl_calls.c to avoid the openssl dependency

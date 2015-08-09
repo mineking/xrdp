@@ -31,7 +31,7 @@
 
 #include "sesman.h"
 #include "libscp_types.h"
-
+#include "../common/log.h"
 #include <errno.h>
 //#include <time.h>
 
@@ -112,7 +112,9 @@ session_get_bydata(char *name, int width, int height, int bpp, int type, char *c
             type = SESMAN_SESSION_TYPE_XVNC; /* 2 */
             policy |= SESMAN_CFG_SESS_POLICY_D;  /* Xvnc cannot resize */
             break;
-        case SCP_SESSION_TYPE_XRDP: /* 1 */
+        case SCP_SESSION_TYPE_XRDP:
+        	/* 1 */
+        case SCP_CHECK_IF_SESSION_EXISTS:
             type = SESMAN_SESSION_TYPE_XRDP; /* 1 */
             break;
         case SCP_SESSION_TYPE_XORG:

@@ -60,7 +60,7 @@ rdp_mcs_recv(struct rdp_mcs *self, struct stream *s, int *chan)
     int opcode;
     int len;
 
-    DEBUG(("  in rdp_mcs_recv"));
+    DEBUG("  in rdp_mcs_recv");
 
     if (rdp_iso_recv(self->iso_layer, s) != 0)
     {
@@ -72,7 +72,7 @@ rdp_mcs_recv(struct rdp_mcs *self, struct stream *s, int *chan)
 
     if (appid != MCS_SDIN)
     {
-        DEBUG(("  out rdp_mcs_recv error"));
+        DEBUG("  out rdp_mcs_recv error");
         return 1;
     }
 
@@ -86,7 +86,7 @@ rdp_mcs_recv(struct rdp_mcs *self, struct stream *s, int *chan)
         in_uint8s(s, 1);
     }
 
-    DEBUG(("  out rdp_mcs_recv"));
+    DEBUG("  out rdp_mcs_recv");
     return 0;
 }
 
@@ -544,11 +544,11 @@ rdp_mcs_recv_cjcf(struct rdp_mcs *self)
 int APP_CC
 rdp_mcs_connect(struct rdp_mcs *self, char *ip, char *port)
 {
-    DEBUG(("  in rdp_mcs_connect"));
+    DEBUG("  in rdp_mcs_connect");
 
     if (rdp_iso_connect(self->iso_layer, ip, port) != 0)
     {
-        DEBUG(("  out rdp_mcs_connect error rdp_iso_connect failed"));
+        DEBUG("  out rdp_mcs_connect error rdp_iso_connect failed");
         return 1;
     }
 
@@ -557,8 +557,8 @@ rdp_mcs_connect(struct rdp_mcs *self, char *ip, char *port)
     if (rdp_mcs_recv_connection_response(self) != 0)
     {
         rdp_iso_disconnect(self->iso_layer);
-        DEBUG(("  out rdp_mcs_connect error rdp_mcs_recv_connection_response \
-failed"));
+        DEBUG("  out rdp_mcs_connect error rdp_mcs_recv_connection_response \
+failed");
         return 1;
     }
 
@@ -568,7 +568,7 @@ failed"));
     if (rdp_mcs_recv_aucf(self) != 0)
     {
         rdp_iso_disconnect(self->iso_layer);
-        DEBUG(("  out rdp_mcs_connect error rdp_mcs_recv_aucf failed"));
+        DEBUG("  out rdp_mcs_connect error rdp_mcs_recv_aucf failed");
         return 1;
     }
 
@@ -577,7 +577,7 @@ failed"));
     if (rdp_mcs_recv_cjcf(self) != 0)
     {
         rdp_iso_disconnect(self->iso_layer);
-        DEBUG(("  out rdp_mcs_connect error rdp_mcs_recv_cjcf 1 failed"));
+        DEBUG("  out rdp_mcs_connect error rdp_mcs_recv_cjcf 1 failed");
         return 1;
     }
 
@@ -586,11 +586,11 @@ failed"));
     if (rdp_mcs_recv_cjcf(self) != 0)
     {
         rdp_iso_disconnect(self->iso_layer);
-        DEBUG(("  out rdp_mcs_connect error rdp_mcs_recv_cjcf 2 failed"));
+        DEBUG("  out rdp_mcs_connect error rdp_mcs_recv_cjcf 2 failed");
         return 1;
     }
 
-    DEBUG(("  out rdp_mcs_connect"));
+    DEBUG("  out rdp_mcs_connect");
     return 0;
 }
 

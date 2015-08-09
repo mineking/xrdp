@@ -572,7 +572,7 @@ xrdp_cache_add_char(struct xrdp_cache *self,
             if (xrdp_font_item_compare(&self->char_items[i][j].font_item, font_item))
             {
                 self->char_items[i][j].stamp = self->char_stamp;
-                DEBUG(("found font at %d %d", i, j));
+                DEBUG("found font at %d %d", i, j);
                 return MAKELONG(j, i);
             }
         }
@@ -596,7 +596,7 @@ xrdp_cache_add_char(struct xrdp_cache *self,
         }
     }
 
-    DEBUG(("adding char at %d %d", f, c));
+    DEBUG("adding char at %d %d", f, c);
     /* set, send char and return */
     fi = &self->char_items[f][c].font_item;
     g_free(fi->data);
@@ -646,7 +646,7 @@ xrdp_cache_add_pointer(struct xrdp_cache *self,
             self->pointer_items[i].stamp = self->pointer_stamp;
             xrdp_wm_set_pointer(self->wm, i);
             self->wm->current_pointer = i;
-            DEBUG(("found pointer at %d", i));
+            DEBUG("found pointer at %d", i);
             return i;
         }
     }
@@ -679,7 +679,7 @@ xrdp_cache_add_pointer(struct xrdp_cache *self,
                          self->pointer_items[index].y,
                          self->pointer_items[index].bpp);
     self->wm->current_pointer = index;
-    DEBUG(("adding pointer at %d", index));
+    DEBUG("adding pointer at %d", index);
     return index;
 }
 
@@ -711,7 +711,7 @@ xrdp_cache_add_pointer_static(struct xrdp_cache *self,
                          self->pointer_items[index].y,
                          self->pointer_items[index].bpp);
     self->wm->current_pointer = index;
-    DEBUG(("adding pointer at %d", index));
+    DEBUG("adding pointer at %d", index);
     return index;
 }
 
@@ -739,7 +739,7 @@ xrdp_cache_add_brush(struct xrdp_cache *self,
                      brush_item_data, 8) == 0)
         {
             self->brush_items[i].stamp = self->brush_stamp;
-            DEBUG(("found brush at %d", i));
+            DEBUG("found brush at %d", i);
             return i;
         }
     }
@@ -762,7 +762,7 @@ xrdp_cache_add_brush(struct xrdp_cache *self,
     self->brush_items[index].stamp = self->brush_stamp;
     libxrdp_orders_send_brush(self->session, 8, 8, 1, 0x81, 8,
                               self->brush_items[index].pattern, index);
-    DEBUG(("adding brush at %d", index));
+    DEBUG("adding brush at %d", index);
     return index;
 }
 

@@ -76,7 +76,7 @@ xrdp_font_create(struct xrdp_wm *wm)
     struct xrdp_font_char *f;
     char file_path[256];
 
-    DEBUG(("in xrdp_font_create"));
+    DEBUG("in xrdp_font_create");
     g_snprintf(file_path, 255, "%s/%s", XRDP_SHARE_PATH, DEFAULT_FONT_NAME);
 
     if (!g_file_exist(file_path))
@@ -165,7 +165,7 @@ xrdp_font_create(struct xrdp_wm *wm)
       self->font_items[0].data = g_malloc(3 * 16, 0);
       g_memcpy(self->font_items[0].data, w_char, 3 * 16);
     */
-    DEBUG(("out xrdp_font_create"));
+    DEBUG("out xrdp_font_create");
     return self;
 }
 
