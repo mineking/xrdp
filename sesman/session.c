@@ -1020,6 +1020,9 @@ session_kill(int pid)
             g_session_count--;
             /*THREAD-FIX release chain lock */
             lock_chain_release();
+
+            g_sigterm(pid);
+
             return SESMAN_SESSION_KILL_OK;
         }
 
