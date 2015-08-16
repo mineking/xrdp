@@ -29,10 +29,10 @@
 #define LOG_LEVEL 1
 #define LLOG(_level, _args) \
     do { if (_level < LOG_LEVEL) { g_write _args ; } } while (0)
-//#define LLOGLN(_level, _args) \
-//    do { if (_level < LOG_LEVEL) { g_writeln _args ; } } while (0)
 #define LLOGLN(_level, _args) \
-    do {  g_writeln _args ;   } while (0)
+    do { if (_level < LOG_LEVEL) { g_writeln _args ; } } while (0)
+//#define LLOGLN(_level, _args) \
+//    do {  g_writeln _args ;   } while (0)
 
 #define FASTPATH_FRAG_SIZE (16 * 1024 - 128)
 
@@ -120,10 +120,6 @@ xrdp_rdp_read_config(struct xrdp_client_info *client_info) {
 								"undefined, fastpath will not be used");
 				client_info->use_fast_path = 0;
 			}
-			log_message(LOG_LEVEL_ALWAYS,
-									"!!!!!!!!!!!FAST PATH DESACTIVE!!!!!!!!");
-							client_info->use_fast_path = 0;
-
 		} else if (g_strcasecmp(item, "security_layer") == 0) {
 			if (g_strcasecmp(value, "rdp") == 0) {
 				client_info->security_layer = PROTOCOL_RDP;
