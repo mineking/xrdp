@@ -25,9 +25,9 @@ keyboard
 #include "rdpkeyboard.h"
 #include "rdpkeyboardevdev.h"
 
-#define LOG_LEVEL 1
-#define LLOGLN(_level, _args) \
-    do { if (_level < LOG_LEVEL) { ErrorF _args ; ErrorF("\n"); } } while (0)
+//#define LOG_LEVEL 1
+//#define LLOGLN(_level, _args) \
+//    do { if (_level < LOG_LEVEL) { ErrorF _args ; ErrorF("\n"); } } while (0)
 
 extern DeviceIntPtr g_keyboard; /* in rdpmain.c */
 extern int g_shift_down; /* in rdpmain.c */

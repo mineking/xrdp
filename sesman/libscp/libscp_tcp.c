@@ -46,7 +46,7 @@ scp_tcp_force_recv(int sck, char *data, int len)
         {
             if (g_tcp_last_error_would_block(sck))
             {
-                g_sleep(1);
+                g_sleep(5);
             }
             else
             {
@@ -89,7 +89,7 @@ scp_tcp_force_send(int sck, char *data, int len)
         {
             if (g_tcp_last_error_would_block(sck))
             {
-                g_sleep(1);
+                g_sleep(5);
             }
             else
             {

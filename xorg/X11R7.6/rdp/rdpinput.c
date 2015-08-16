@@ -44,11 +44,11 @@ keyboard and mouse stuff
 #include "rdpkeyboardbase.h"
 #include "rdpkeyboardevdev.h"
 
-#define LOG_LEVEL 1
-#define LLOG(_level, _args) \
-    do { if (_level < LOG_LEVEL) { ErrorF _args ; } } while (0)
-#define LLOGLN(_level, _args) \
-    do { if (_level < LOG_LEVEL) { ErrorF _args ; ErrorF("\n"); } } while (0)
+//#define LOG_LEVEL 1
+//#define LLOG(_level, _args) \
+//    do { if (_level < LOG_LEVEL) { ErrorF _args ; } } while (0)
+//#define LLOGLN(_level, _args) \
+//    do { if (_level < LOG_LEVEL) { ErrorF _args ; ErrorF("\n"); } } while (0)
 
 extern ScreenPtr g_pScreen; /* in rdpmain.c */
 extern DeviceIntPtr g_pointer; /* in rdpmain.c */

@@ -75,6 +75,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "xrdp_constants.h"
 
 //#include "colormapst.h"
+#include <sys/syscall.h>
+//#define LLOG(_level, _args)  ErrorF("%d:%ld [XLOG] %s:%d %s() : ",getpid(),syscall(SYS_gettid), __FILE__, __LINE__,__func__);ErrorF _args;ErrorF("\n");
+//
+//
+//#define LLOGLN(_level, _args) ErrorF("%d:%ld [XLOGLN] %s:%d %s() : ",getpid(),syscall(SYS_gettid), __FILE__, __LINE__,__func__);ErrorF _args;ErrorF("\n");
+
+#define LLOGLN(_level, _args) ;
+
+#define LLOG(_level, _args) ;
+
+
 
 /* test to see if this is xorg source or xfree86 */
 #ifdef XORGSERVER

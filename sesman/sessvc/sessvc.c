@@ -45,7 +45,7 @@ term_signal_handler(int sig) {
 	g_sigterm(wm_pid);
 	log_info("terminating chansrv and x");
 	kill_chansrv_and_x();
-	g_sleep(1);
+	g_sleep(1000);
 	log_info("exiting");
 
 }
@@ -86,7 +86,7 @@ void kill_chansrv_and_x() {
 	ret = g_waitpid(chansrv_pid);
 	while ((ret == 0) && !g_term) {
 		ret = g_waitpid(chansrv_pid);
-		g_sleep(1);
+		g_sleep(100);
 	}
 	log_info("channel server is stopped");
 	chansrv_cleanup(chansrv_pid);
@@ -97,7 +97,7 @@ void kill_chansrv_and_x() {
 	log_info("waiting for X server to stop");
 	while ((ret == 0) && !g_term) {
 		ret = g_waitpid(x_pid);
-		g_sleep(1);
+		g_sleep(100);
 	}
 	log_info("cleanup");
 	g_deinit();
@@ -149,7 +149,7 @@ int main(int argc, char **argv) {
 
 	while ((ret == 0) && !g_term) {
 		ret = g_waitpid(wm_pid);
-		g_sleep(1);
+		g_sleep(100);
 	}
 
 	if (ret < 0) {

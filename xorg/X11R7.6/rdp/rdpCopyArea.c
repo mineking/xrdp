@@ -22,13 +22,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "rdp.h"
 #include "rdpdraw.h"
 
-#define LDEBUG 0
 
-#define LOG_LEVEL 1
-#define LLOG(_level, _args) \
-    do { if (_level < LOG_LEVEL) { ErrorF _args ; } } while (0)
-#define LLOGLN(_level, _args) \
-    do { if (_level < LOG_LEVEL) { ErrorF _args ; ErrorF("\n"); } } while (0)
+
+
 
 extern rdpScreenInfoRec g_rdpScreen; /* from rdpmain.c */
 extern DevPrivateKeyRec g_rdpGCIndex; /* from rdpmain.c */

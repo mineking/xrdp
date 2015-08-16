@@ -225,7 +225,7 @@ xrdp_process_main_loop(struct xrdp_process *self)
             if (g_obj_wait(robjs, robjs_count, wobjs, wobjs_count, timeout) != 0)
             {
                 /* error, should not get here */
-                g_sleep(100);
+                g_sleep(5);
             }
 
             if (g_is_wait_obj_set(term_obj)) /* term */

@@ -10,8 +10,9 @@ wm_start()
 
   # debian
   if [ -r /etc/X11/Xsession ]; then
-    . /etc/X11/Xsession
-    exit 0
+    #. /etc/X11/Xsession
+    mate-session
+	exit 0
   fi
 
   # el

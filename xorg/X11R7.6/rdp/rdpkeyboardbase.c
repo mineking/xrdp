@@ -32,9 +32,9 @@ extern int g_ctrl_down; /* in rdpmain.c */
 extern int g_pause_spe; /* in rdpmain.c */
 extern int g_tab_down; /* in rdpmain.c */
 
-#define LOG_LEVEL 1
-#define LLOGLN(_level, _args) \
-    do { if (_level < LOG_LEVEL) { ErrorF _args ; ErrorF("\n"); } } while (0)
+//#define LOG_LEVEL 1
+//#define LLOGLN(_level, _args) \
+//    do { if (_level < LOG_LEVEL) { ErrorF _args ; ErrorF("\n"); } } while (0)
 
 #define XSCAN_Tab         23
 #define XSCAN_Return      36 /* above right shift */
